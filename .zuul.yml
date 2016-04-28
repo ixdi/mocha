@@ -1,0 +1,14 @@
+ui: mocha-bdd
+browsers:
+  - name: chrome
+    version: latest
+  - name: safar
+    version: latest
+  - name: iPhone
+    version: '8.0..latest'
+browserify:
+  - ignore: 'jade'
+  - exclude:
+     - './test/acceptance/interfaces/*.js'
+     - './test/color.js'
+     - './lib-cov/mocha'

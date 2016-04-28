@@ -1,9 +1,11 @@
 BROWSERIFY := node_modules/.bin/browserify
 ESLINT := node_modules/.bin/eslint
+ZUUL := node_modules/.bin/zuul
 
 REPORTER ?= spec
 TM_BUNDLE = JavaScript\ mocha.tmbundle
 SRC = $(shell find lib -name "*.js" -type f | sort)
+TESTS = $(shell find test -name "*.js" -type f | sort)
 SUPPORT = $(wildcard support/*.js)
 
 all: mocha.js
@@ -16,6 +18,15 @@ mocha.js: $(SRC) $(SUPPORT)
 		--ignore 'path' \
 		--ignore 'supports-color' \
 		--exclude './lib-cov/mocha' > $@
+
+test-zuul: mocha.js $(TEST_SRC)
+	./node_modules/.bin/zuul --local 9000 \
+		--no-coverage \
+		--ignore 'jade' \
+		--exclude './lib-cov/mocha','./test/acceptance/interfaces/*.js' \
+		test/browser/setup.js \
+		test/acceptance/context.js \
+		test/acceptance/required-tokens.js
 
 clean:
 	rm -f mocha.js
@@ -152,4 +163,4 @@ non-tty:
 tm:
 	@open editors/$(TM_BUNDLE)
 
-.PHONY: test-cov test-jsapi test-compilers watch test test-all test-bdd test-tdd test-qunit test-exports test-unit test-integration non-tty tm clean
+.PHONY: test-zuul test-cov test-jsapi test-compilers watch test test-all test-bdd test-tdd test-qunit test-exports test-unit test-integration non-tty tm clean

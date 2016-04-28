@@ -290,7 +290,8 @@
     "coffee-script": "~1.8.0",
     "eslint": "^1.2.1",
     "should": "~8.0.0",
-    "through2": "~0.6.5"
+    "through2": "~0.6.5",
+    "zuul": "git://github.com/dasilvacontin/zuul.git#support-browserify-array-opts"
   },
   "files": [
     "bin",
